@@ -1,0 +1,2501 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PG School Reunion 2026 - Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', 'Noto Sans Bengali', 'Kalpurush', sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            color: #333;
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Countdown Timer */
+        .countdown-container {
+            background: linear-gradient(135deg, rgba(30, 60, 114, 0.95) 0%, rgba(42, 82, 152, 0.95) 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #ffcc00;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .countdown-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #ffcc00;
+            font-weight: 600;
+        }
+        
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 8px;
+            min-width: 60px;
+        }
+        
+        .countdown-number {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffcc00;
+            display: block;
+            line-height: 1;
+        }
+        
+        .countdown-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+        
+        /* Batch Representatives Corner */
+        .representatives-corner {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 990;
+        }
+        
+        .corner-btn {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #e2136e 0%, #c0105d 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 6px 20px rgba(226, 19, 110, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .representatives-panel {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            width: 320px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 20px;
+            z-index: 995;
+            display: none;
+            animation: slideUp 0.3s ease-out;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .panel-header h3 {
+            color: #1e3c72;
+            font-size: 18px;
+        }
+        
+        .close-panel {
+            background: #f0f0f0;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .close-panel:hover {
+            background: #e2136e;
+            color: white;
+        }
+        
+        .batch-search {
+            margin-bottom: 15px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: #f9f9f9;
+        }
+        
+        .batch-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .batch-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .batch-item:hover {
+            background: #eef5ff;
+            transform: translateX(-5px);
+            border-color: #2a5298;
+        }
+        
+        .batch-item.active {
+            background: linear-gradient(135deg, #eef5ff 0%, #d4e3ff 100%);
+            border-color: #2a5298;
+            border-left: 5px solid #2a5298;
+        }
+        
+        .batch-year {
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .batch-rep-name {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 3px;
+        }
+        
+        .batch-contact {
+            font-size: 13px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .rep-details {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .rep-details.show {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .rep-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2a5298 0%, #e2136e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .rep-info {
+            text-align: center;
+        }
+        
+        .rep-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e3c72;
+            margin-bottom: 5px;
+        }
+        
+        .rep-batch {
+            color: #e2136e;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+        
+        .contact-item:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+        
+        .contact-item i {
+            color: #2a5298;
+            width: 20px;
+        }
+        
+        /* Mobile Container */
+        .mobile-container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        
+        /* Header */
+        .mobile-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            position: sticky;
+            top: 90px;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .mobile-logo {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #ffcc00;
+            display: inline-block;
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
+        .mobile-header h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .mobile-header p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 3px;
+        }
+        
+        .header-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ffcc00;
+            color: #1e3c72;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+            animation: badgePulse 2s infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Main Content */
+        .mobile-content {
+            padding: 15px;
+            animation: contentFadeIn 0.5s ease-out;
+        }
+        
+        @keyframes contentFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Mobile Cards */
+        .mobile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border: 1px solid #f0f0f0;
+            animation: cardSlideIn 0.3s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        @keyframes cardSlideIn {
+            from { 
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Delayed animations for cards */
+        .mobile-card:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-card:nth-child(2) { animation-delay: 0.2s; }
+        .mobile-card:nth-child(3) { animation-delay: 0.3s; }
+        .mobile-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        /* Card Titles */
+        .card-title {
+            font-size: 18px;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: #e2136e;
+            font-size: 20px;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+            font-size: 14px;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #e2136e;
+            font-weight: bold;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: #f9f9f9;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #2a5298;
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        /* Mobile Buttons */
+        .mobile-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+            color: white;
+        }
+        
+        .mobile-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .mobile-btn:hover::after {
+            left: 100%;
+        }
+        
+        .mobile-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .mobile-btn-primary {
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            box-shadow: 0 4px 15px rgba(42, 82, 152, 0.3);
+        }
+        
+        .mobile-btn-accent {
+            background: linear-gradient(135deg, #e2136e 0%, #c0105d 100%);
+            box-shadow: 0 4px 15px rgba(226, 19, 110, 0.3);
+        }
+        
+        .mobile-btn-success {
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .mobile-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        /* Name Toggle */
+        .name-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        
+        .toggle-option {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .toggle-option.active {
+            background: #2a5298;
+            color: white;
+            box-shadow: 0 3px 10px rgba(42, 82, 152, 0.2);
+        }
+        
+        /* Guest Counter */
+        .guest-counter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .counter-btn {
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 50%;
+            background: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .counter-btn:active {
+            transform: scale(0.9);
+        }
+        
+        .counter-display {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1e3c72;
+            min-width: 50px;
+            text-align: center;
+        }
+        
+        /* Amount Display */
+        .amount-display {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 12px;
+            color: white;
+            animation: amountPulse 2s infinite alternate;
+        }
+        
+        @keyframes amountPulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.02); }
+        }
+        
+        .amount-display .label {
+            font-size: 16px;
+            margin-bottom: 5px;
+            opacity: 0.9;
+        }
+        
+        .amount-display .amount {
+            font-size: 32px;
+            font-weight: 800;
+            margin: 5px 0;
+        }
+        
+        .amount-display .subtext {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Payment Gateway */
+        .payment-gateway {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-method {
+            flex: 1;
+            min-width: 100px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .payment-method.active {
+            border-color: #e2136e;
+            background: #fff8f8;
+            box-shadow: 0 4px 10px rgba(226, 19, 110, 0.1);
+        }
+        
+        .payment-method i {
+            font-size: 24px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .payment-method.bkash i { color: #e2136e; }
+        .payment-method.rocket i { color: #9c27b0; }
+        .payment-method.nagad i { color: #f44336; }
+        
+        .payment-method span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .payment-steps {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .payment-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .payment-step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-icon {
+            width: 30px;
+            height: 30px;
+            background: #e2136e;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        /* Bkash Payment Box */
+        .bkash-box {
+            background: #fff8f8;
+            border: 2px solid #e2136e;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bkash-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #e2136e, #ff6b9d, #e2136e);
+            animation: stripeMove 3s linear infinite;
+        }
+        
+        @keyframes stripeMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 0; }
+        }
+        
+        .bkash-number {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px dashed #e2136e;
+            font-size: 24px;
+            font-weight: 800;
+            color: #e2136e;
+            letter-spacing: 1px;
+            font-family: monospace;
+        }
+        
+        /* Steps */
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #e2136e;
+        }
+        
+        .step-number {
+            background: #e2136e;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .step-content {
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        /* Alert Messages */
+        .mobile-alert {
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            display: none;
+            animation: alertSlideIn 0.3s ease-out;
+            font-size: 14px;
+        }
+        
+        @keyframes alertSlideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        /* Ticket Design */
+        .ticket-preview {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+            border: 3px solid transparent;
+            border-radius: 20px;
+            padding: 0;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(30, 60, 114, 0.2);
+            animation: ticketAppear 0.8s ease-out;
+        }
+        
+        @keyframes ticketAppear {
+            0% { transform: scale(0.9) rotate(-2deg); opacity: 0; }
+            100% { transform: scale(1) rotate(0); opacity: 1; }
+        }
+        
+        .ticket-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, 
+                #FF0000, #FF8000, #FFFF00, 
+                #00FF00, #00FFFF, #0000FF, 
+                #8000FF, #FF00FF);
+            z-index: 2;
+        }
+        
+        .ticket-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ticket-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: rotate(30deg);
+            opacity: 0.3;
+        }
+        
+        .ticket-logo {
+            font-size: 50px;
+            color: #FFD700;
+            margin-bottom: 15px;
+            animation: ticketLogoFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes ticketLogoFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .ticket-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .ticket-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .ticket-id {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-family: monospace;
+            font-size: 18px;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-top: 10px;
+            border: 2px dashed rgba(255,255,255,0.5);
+        }
+        
+        .ticket-body {
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        .nickname-display {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .nickname-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nickname-value {
+            font-size: 36px;
+            font-weight: 900;
+            color: #e2136e;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #e2136e, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+            position: relative;
+        }
+        
+        .nickname-value::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #e2136e, transparent);
+            border-radius: 2px;
+        }
+        
+        .ticket-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .info-card {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 5px solid;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .info-card:nth-child(1) { border-color: #1e3c72; }
+        .info-card:nth-child(2) { border-color: #e2136e; }
+        .info-card:nth-child(3) { border-color: #28a745; }
+        .info-card:nth-child(4) { border-color: #ffcc00; }
+        
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #222;
+        }
+        
+        .event-details {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .event-details::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+        }
+        
+        .event-date {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .event-location {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        
+        .ticket-footer {
+            padding: 20px;
+            background: #f8f9fa;
+            text-align: center;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .ticket-terms {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .barcode {
+            margin: 10px auto;
+            padding: 10px;
+            background: white;
+            display: inline-block;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .barcode-line {
+            display: flex;
+            height: 50px;
+            gap: 2px;
+        }
+        
+        .barcode-line div {
+            background: black;
+            height: 100%;
+        }
+        
+        /* Loading Spinner */
+        .mobile-loading {
+            display: none;
+            text-align: center;
+            padding: 30px 15px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2a5298;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobile Footer */
+        .mobile-footer {
+            text-align: center;
+            padding: 20px 15px;
+            background: #f8f9fa;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            display: flex;
+            padding: 10px 15px;
+            border-top: 1px solid #e0e0e0;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .nav-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            color: #666;
+            text-decoration: none;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+        
+        .nav-item.active {
+            color: #2a5298;
+            font-weight: 600;
+        }
+        
+        .nav-item i {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        /* Confirmation Modal */
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 400px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlideUp 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideUp {
+            from { transform: translateY(50px); }
+            to { transform: translateY(0); }
+        }
+        
+        /* Progress indicator */
+        .progress-indicator {
+            height: 3px;
+            background: #e0e0e0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3c72, #2a5298, #e2136e);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .ticket-info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nickname-value {
+                font-size: 28px;
+            }
+            
+            .event-date {
+                font-size: 20px;
+            }
+            
+            .representatives-panel {
+                width: calc(100vw - 40px);
+                right: 10px;
+                left: 10px;
+            }
+            
+            .payment-methods {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-height: 500px) and (orientation: landscape) {
+            .mobile-header {
+                position: relative;
+                padding: 10px;
+            }
+            
+            .mobile-logo {
+                font-size: 30px;
+            }
+            
+            .mobile-header h1 {
+                font-size: 18px;
+            }
+            
+            .mobile-content {
+                padding: 10px;
+            }
+            
+            .mobile-card {
+                padding: 15px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress Indicator -->
+    <div class="progress-indicator" id="progressIndicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <!-- Countdown Timer -->
+    <div class="countdown-container">
+        <div class="countdown-title">
+            <i class="fas fa-clock"></i> রিইউনিয়ন পর্যন্ত সময় বাকি
+        </div>
+        <div class="countdown-timer">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">দিন</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">ঘন্টা</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">মিনিট</span>
+            </div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">সেকেন্ড</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Batch Representatives Corner -->
+    <div class="representatives-corner">
+        <button class="corner-btn" id="repCornerBtn">
+            <i class="fas fa-users"></i>
+        </button>
+        <div class="representatives-panel" id="repPanel">
+            <div class="panel-header">
+                <h3><i class="fas fa-user-tie"></i> ব্যাচ রিপ্রেজেন্টেটিভস</h3>
+                <button class="close-panel" id="closePanelBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="batch-search">
+                <input type="text" class="search-input" id="batchSearch" placeholder="ব্যাচ খুঁজুন (যেমন: ২০১০)">
+            </div>
+            
+            <div class="batch-list" id="batchList">
+                <!-- Batch items will be generated by JavaScript -->
+            </div>
+            
+            <div class="rep-details" id="repDetails">
+                <!-- Representative details will be shown here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Container -->
+    <div class="mobile-container">
+        <!-- Header -->
+        <header class="mobile-header">
+            <div class="header-badge">সক্রিয়</div>
+            <div class="mobile-logo">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h1>PG School Reunion 2026</h1>
+            <p>পুরনো বন্ধুদের সাথে আবার দেখা হোক</p>
+            <p>রেজিস্ট্রেশন চলছে</p>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="mobile-content" id="mainContent">
+            <!-- Alerts -->
+            <div class="mobile-alert" id="successAlert"></div>
+            <div class="mobile-alert alert-error" id="errorAlert"></div>
+            
+            <!-- Registration Form Card -->
+            <div class="mobile-card">
+                <h2 class="card-title">
+                    <i class="fas fa-user-plus"></i> রেজিস্ট্রেশন ফর্ম
+                </h2>
+                
+                <div class="form-group">
+                    <label for="firstName" class="required">নামের প্রথম অংশ</label>
+                    <input type="text" id="firstName" class="form-input" placeholder="আপনার প্রথম নাম" required>
+                </div>
+                
+                <div class="name-toggle">
+                    <button type="button" class="toggle-option" id="lastNameBtn">
+                        উপাধি
+                    </button>
+                    <button type="button" class="toggle-option active" id="nicknameBtn">
+                        ডাকনাম
+                    </button>
+                </div>
+                
+                <div id="lastNameField" style="display: none;">
+                    <div class="form-group">
+                        <label for="lastName">উপাধি</label>
+                        <input type="text" id="lastName" class="form-input" placeholder="আপনার উপাধি">
+                    </div>
+                </div>
+                
+                <div id="nicknameField">
+                    <div class="form-group">
+                        <label for="nickname" class="required">ডাকনাম</label>
+                        <input type="text" id="nickname" class="form-input" placeholder="স্কুলে যে নামে ডাকা হতো" required>
+                        <small style="color: #666; font-size: 12px;">এই নামটি ব্যাজে থাকবে</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="required">ইমেইল ঠিকানা</label>
+                    <input type="email" id="email" class="form-input" placeholder="example@gmail.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="required">মোবাইল নম্বর</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="01XXXXXXXXX" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gradYear" class="required">পাসের বছর</label>
+                    <select id="gradYear" class="form-select" required>
+                        <option value="">বছর নির্বাচন করুন</option>
+                        <option value="running">বর্তমান শিক্ষার্থী</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="batch">বিভাগ/বৈচ (ঐচ্ছিক)</label>
+                    <input type="text" id="batch" class="form-input" placeholder="যেমন: বিজ্ঞান ২০১০">
+                </div>
+                
+                <div class="form-group">
+                    <label for="tshirtSize" class="required">টি-শার্ট সাইজ</label>
+                    <select id="tshirtSize" class="form-select" required>
+                        <option value="">সাইজ নির্বাচন করুন</option>
+                        <option value="S">ছোট (S)</option>
+                        <option value="M">মাঝারি (M)</option>
+                        <option value="L">বড় (L)</option>
+                        <option value="XL">এক্সট্রা লার্জ (XL)</option>
+                        <option value="XXL">ডাবল এক্সট্রা (XXL)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>অতিথির সংখ্যা</label>
+                    <div class="guest-counter">
+                        <button type="button" class="counter-btn" id="decreaseGuest">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <div class="counter-display" id="guestCountDisplay">0</div>
+                        <button type="button" class="counter-btn" id="increaseGuest">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <small style="color: #666; display: block; text-align: center; margin-top: 5px;">
+                        প্রতি অতিথি: ৳ ১,০০০
+                    </small>
+                    <input type="hidden" id="guestCount" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">বিশেষ মেসেজ (ঐচ্ছিক)</label>
+                    <textarea id="message" class="form-textarea" placeholder="খাবারের অ্যালার্জি বা বিশেষ নির্দেশনা..."></textarea>
+                </div>
+                
+                <button class="mobile-btn mobile-btn-primary" id="validateFormBtn">
+                    <i class="fas fa-check-circle"></i> ফর্ম ভেরিফাই করুন
+                </button>
+            </div>
+            
+            <!-- Payment Card -->
+            <div class="mobile-card">
+                <h2 class="card-title">
+                    <i class="fas fa-money-bill-wave"></i> পেমেন্ট বিবরণ
+                </h2>
+                
+                <div class="amount-display">
+                    <div class="label">মোট টাকার পরিমাণ</div>
+                    <div class="amount">৳ <span id="totalAmount">1000</span></div>
+                    <div class="subtext">(রেজিস্ট্রেশন + অতিথি)</div>
+                </div>
+                
+                <!-- Payment Gateway -->
+                <div class="payment-gateway">
+                    <h3 style="color: #1e3c72; margin-bottom: 15px; text-align: center;">
+                        <i class="fas fa-wallet"></i> পেমেন্ট মেথড নির্বাচন করুন
+                    </h3>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-method bkash active" data-method="bkash">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>bKash</span>
+                        </div>
+                        <div class="payment-method rocket" data-method="rocket">
+                            <i class="fas fa-rocket"></i>
+                            <span>Rocket</span>
+                        </div>
+                        <div class="payment-method nagad" data-method="nagad">
+                            <i class="fas fa-wallet"></i>
+                            <span>Nagad</span>
+                        </div>
+                    </div>
+                    
+                    <!-- bKash Payment -->
+                    <div class="payment-method-content" id="bkashPayment" style="display: block;">
+                        <div class="bkash-box">
+                            <h4 style="color: #e2136e; margin-bottom: 15px; text-align: center;">
+                                <i class="fas fa-mobile-alt"></i> bKash এ পেমেন্ট করুন
+                            </h4>
+                            
+                            <div class="bkash-number" id="bkashNumberDisplay">
+                                01892599750
+                            </div>
+                            
+                            <div class="payment-steps">
+                                <div class="payment-step">
+                                    <div class="step-icon">1</div>
+                                    <div><strong>bKash অ্যাপ খুলুন</strong> → "Send Money"</div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon">2</div>
+                                    <div><strong>রিসিভার নাম্বার:</strong> <span style="font-family: monospace;">01892599750</span></div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon">3</div>
+                                    <div><strong>টাকার পরিমাণ:</strong> ৳ <span id="bkashAmount">1000</span></div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon">4</div>
+                                    <div><strong>রেফারেন্স:</strong> "Reunion2026"</div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon">5</div>
+                                    <div><strong>পিন নম্বর দিন</strong> ও কমপ্লিট করুন</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Rocket Payment -->
+                    <div class="payment-method-content" id="rocketPayment" style="display: none;">
+                        <div class="bkash-box" style="border-color: #9c27b0;">
+                            <h4 style="color: #9c27b0; margin-bottom: 15px; text-align: center;">
+                                <i class="fas fa-rocket"></i> Rocket এ পেমেন্ট করুন
+                            </h4>
+                            
+                            <div class="bkash-number" style="border-color: #9c27b0; color: #9c27b0;">
+                                01892599750
+                            </div>
+                            
+                            <div class="payment-steps">
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #9c27b0;">1</div>
+                                    <div><strong>Rocket অ্যাপ খুলুন</strong> → "Send Money"</div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #9c27b0;">2</div>
+                                    <div><strong>রিসিভার নাম্বার:</strong> <span style="font-family: monospace;">01892599750</span></div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #9c27b0;">3</div>
+                                    <div><strong>টাকার পরিমাণ:</strong> ৳ <span id="rocketAmount">1000</span></div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #9c27b0;">4</div>
+                                    <div><strong>রেফারেন্স:</strong> "REUNION2026"</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Nagad Payment -->
+                    <div class="payment-method-content" id="nagadPayment" style="display: none;">
+                        <div class="bkash-box" style="border-color: #f44336;">
+                            <h4 style="color: #f44336; margin-bottom: 15px; text-align: center;">
+                                <i class="fas fa-wallet"></i> Nagad এ পেমেন্ট করুন
+                            </h4>
+                            
+                            <div class="bkash-number" style="border-color: #f44336; color: #f44336;">
+                                01892599750
+                            </div>
+                            
+                            <div class="payment-steps">
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #f44336;">1</div>
+                                    <div><strong>Nagad অ্যাপ খুলুন</strong> → "Send Money"</div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #f44336;">2</div>
+                                    <div><strong>রিসিভার নাম্বার:</strong> <span style="font-family: monospace;">01892599750</span></div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #f44336;">3</div>
+                                    <div><strong>টাকার পরিমাণ:</strong> ৳ <span id="nagadAmount">1000</span></div>
+                                </div>
+                                <div class="payment-step">
+                                    <div class="step-icon" style="background: #f44336;">4</div>
+                                    <div><strong>রেফারেন্স:</strong> "PGREUNION"</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="transactionId" class="required">ট্রানজেকশন আইডি</label>
+                        <input type="text" id="transactionId" class="form-input" placeholder="8A7BC9D2E1" required>
+                        <small style="color: #666; font-size: 12px;">পেমেন্ট অ্যাপ থেকে পাওয়া ১০ ডিজিটের আইডি</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="senderNumber" class="required">আপনার মোবাইল নাম্বার</label>
+                        <input type="text" id="senderNumber" class="form-input" placeholder="01XXXXXXXXX" required>
+                    </div>
+                    
+                    <button class="mobile-btn mobile-btn-accent" id="completeRegistrationBtn" disabled>
+                        <i class="fas fa-check-circle"></i> রেজিস্ট্রেশন সম্পূর্ণ করুন
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Ticket Preview Card -->
+            <div class="mobile-card" id="ticketPreviewCard" style="display: none;">
+                <h2 class="card-title">
+                    <i class="fas fa-ticket-alt"></i> আপনার টিকিট
+                </h2>
+                <div id="ticketPreviewContent"></div>
+            </div>
+            
+            <!-- Instructions Card -->
+            <div class="mobile-card">
+                <h2 class="card-title">
+                    <i class="fas fa-info-circle"></i> নির্দেশনা
+                </h2>
+                
+                <div class="step">
+                    <div class="step-number"><i class="fas fa-envelope"></i></div>
+                    <div class="step-content">
+                        <strong>ইমেইল পাঠানো হবে</strong><br>
+                        mr14allu@gmail.com ঠিকানায়
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number"><i class="fas fa-save"></i></div>
+                    <div class="step-content">
+                        <strong>টিকিট সংরক্ষণ করুন</strong><br>
+                        প্রিন্ট করুন বা স্ক্রিনশট নিন
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number"><i class="fas fa-phone"></i></div>
+                    <div class="step-content">
+                        <strong>যোগাযোগ করুন</strong><br>
+                        সমস্যা হলে: <a href="tel:01892599750">০১৮৯২৫৯৯৭৫০</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loading Spinner -->
+            <div class="mobile-loading" id="loading">
+                <div class="spinner"></div>
+                <p style="color: #2a5298; margin-top: 10px;">রেজিস্ট্রেশন প্রক্রিয়া চলছে...</p>
+                <p style="color: #666; font-size: 14px;">অনুগ্রহ করে অপেক্ষা করুন</p>
+            </div>
+        </main>
+        
+        <!-- Confirmation Modal -->
+        <div class="confirmation-modal" id="confirmationModal">
+            <div class="modal-content">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 60px; color: #28a745; margin-bottom: 15px;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 style="color: #28a745; margin-bottom: 10px;">রেজিস্ট্রেশন সফল!</h2>
+                    <p id="confirmationMessage" style="color: #666; margin-bottom: 20px;"></p>
+                </div>
+                
+                <div id="modalTicketContent" style="margin-bottom: 20px;"></div>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="mobile-btn mobile-btn-success" id="printTicketBtn">
+                        <i class="fas fa-print"></i> টিকিট প্রিন্ট করুন
+                    </button>
+                    <button class="mobile-btn mobile-btn-primary" id="sendEmailBtn">
+                        <i class="fas fa-paper-plane"></i> ইমেইল আবার পাঠান
+                    </button>
+                    <button class="mobile-btn" id="closeModalBtn">
+                        <i class="fas fa-times"></i> বন্ধ করুন
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Footer -->
+        <footer class="mobile-footer">
+            <p style="font-size: 14px; margin-bottom: 5px; color: #1e3c72; font-weight: 600;">
+                PG School Reunion 2026 কমিটি
+            </p>
+            <p style="margin-bottom: 3px;">
+                <i class="fas fa-envelope"></i> pg.reunion2026@example.com
+            </p>
+            <p>
+                <i class="fas fa-phone"></i> <a href="tel:01892599750" style="color: #666; text-decoration: none;">০১৮৯২৫৯৯৭৫০</a>
+            </p>
+            <p style="margin-top: 10px; color: #888; font-size: 11px;">
+                © ২০২৬ PG School Reunion. সর্বস্বত্ব সংরক্ষিত।
+            </p>
+        </footer>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <a href="#registration" class="nav-item active" data-section="registration">
+                <i class="fas fa-user-plus"></i>
+                রেজিস্ট্রেশন
+            </a>
+            <a href="#payment" class="nav-item" data-section="payment">
+                <i class="fas fa-money-bill-wave"></i>
+                পেমেন্ট
+            </a>
+            <a href="#ticket" class="nav-item" data-section="ticket">
+                <i class="fas fa-ticket-alt"></i>
+                টিকিট
+            </a>
+            <a href="#help" class="nav-item" data-section="help">
+                <i class="fas fa-question-circle"></i>
+                সহায়তা
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // Initialize variables
+        let guestCount = 0;
+        let totalAmount = 1000;
+        let useNickname = true;
+        let currentTicketData = null;
+        let selectedPaymentMethod = 'bkash';
+        
+        // DOM Elements
+        const daysElement = document.getElementById('days');
+        const hoursElement = document.getElementById('hours');
+        const minutesElement = document.getElementById('minutes');
+        const secondsElement = document.getElementById('seconds');
+        
+        const repCornerBtn = document.getElementById('repCornerBtn');
+        const repPanel = document.getElementById('repPanel');
+        const closePanelBtn = document.getElementById('closePanelBtn');
+        const batchSearch = document.getElementById('batchSearch');
+        const batchList = document.getElementById('batchList');
+        const repDetails = document.getElementById('repDetails');
+        
+        const lastNameBtn = document.getElementById('lastNameBtn');
+        const nicknameBtn = document.getElementById('nicknameBtn');
+        const lastNameField = document.getElementById('lastNameField');
+        const nicknameField = document.getElementById('nicknameField');
+        const decreaseGuestBtn = document.getElementById('decreaseGuest');
+        const increaseGuestBtn = document.getElementById('increaseGuest');
+        const guestCountDisplay = document.getElementById('guestCountDisplay');
+        const guestCountInput = document.getElementById('guestCount');
+        const totalAmountDisplay = document.getElementById('totalAmount');
+        const gradYearSelect = document.getElementById('gradYear');
+        const validateFormBtn = document.getElementById('validateFormBtn');
+        const completeRegistrationBtn = document.getElementById('completeRegistrationBtn');
+        const loadingDiv = document.getElementById('loading');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+        const confirmationModal = document.getElementById('confirmationModal');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+        const modalTicketContent = document.getElementById('modalTicketContent');
+        const ticketPreviewCard = document.getElementById('ticketPreviewCard');
+        const ticketPreviewContent = document.getElementById('ticketPreviewContent');
+        const printTicketBtn = document.getElementById('printTicketBtn');
+        const sendEmailBtn = document.getElementById('sendEmailBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const progressIndicator = document.getElementById('progressIndicator');
+        const progressBar = document.getElementById('progressBar');
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        // Payment method elements
+        const paymentMethods = document.querySelectorAll('.payment-method');
+        const bkashPayment = document.getElementById('bkashPayment');
+        const rocketPayment = document.getElementById('rocketPayment');
+        const nagadPayment = document.getElementById('nagadPayment');
+        const bkashAmount = document.getElementById('bkashAmount');
+        const rocketAmount = document.getElementById('rocketAmount');
+        const nagadAmount = document.getElementById('nagadAmount');
+        
+        // Batch Representatives Data
+        const batchRepresentatives = [
+            { year: '২০১০', name: 'আরিফ ইসলাম', phone: '01712345678', email: 'arif@example.com', role: 'বিজ্ঞান বিভাগ' },
+            { year: '২০১১', name: 'সুমনা আক্তার', phone: '01812345678', email: 'sumona@example.com', role: 'মানবিক বিভাগ' },
+            { year: '২০১২', name: 'রাজিব হাসান', phone: '01912345678', email: 'rajib@example.com', role: 'ব্যবসায় শিক্ষা' },
+            { year: '২০১৩', name: 'তানজিম আহমেদ', phone: '01512345678', email: 'tanjim@example.com', role: 'বিজ্ঞান বিভাগ' },
+            { year: '২০১৪', name: 'ফারজানা ইসলাম', phone: '01612345678', email: 'farzana@example.com', role: 'মানবিক বিভাগ' },
+            { year: '২০১৫', name: 'ইমরান খান', phone: '01312345678', email: 'imran@example.com', role: 'ব্যবসায় শিক্ষা' },
+            { year: '২০১৬', name: 'নুসরাত জাহান', phone: '01412345678', email: 'nusrat@example.com', role: 'বিজ্ঞান বিভাগ' },
+            { year: '২০১৭', name: 'সাকিব আল হাসান', phone: '01722345678', email: 'sakib@example.com', role: 'মানবিক বিভাগ' },
+            { year: '২০১৮', name: 'মেহেদী হাসান', phone: '01822345678', email: 'mehedi@example.com', role: 'ব্যবসায় শিক্ষা' },
+            { year: '২০১৯', name: 'তাসনিম আহমেদ', phone: '01922345678', email: 'tasnim@example.com', role: 'বিজ্ঞান বিভাগ' },
+            { year: '২০২০', name: 'আয়শা সিদ্দিকা', phone: '01522345678', email: 'aysha@example.com', role: 'মানবিক বিভাগ' },
+            { year: '২০২১', name: 'ফাহিম রহমান', phone: '01622345678', email: 'fahim@example.com', role: 'ব্যবসায় শিক্ষা' },
+            { year: '২০২২', name: 'জারিন তাসনিম', phone: '01322345678', email: 'zarin@example.com', role: 'বিজ্ঞান বিভাগ' },
+            { year: '২০২৩', name: 'রাইয়ান আহমেদ', phone: '01422345678', email: 'rayan@example.com', role: 'মানবিক বিভাগ' },
+            { year: '২০২৪', name: 'নাফিজ আহমেদ', phone: '01732345678', email: 'nafiz@example.com', role: 'বর্তমান শিক্ষার্থী' },
+            { year: '২০২৫', name: 'সায়মা ইসলাম', phone: '01832345678', email: 'saima@example.com', role: 'বর্তমান শিক্ষার্থী' },
+        ];
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const reunionDate = new Date('March 23, 2026 18:00:00').getTime();
+            const now = new Date().getTime();
+            const timeLeft = reunionDate - now;
+            
+            if (timeLeft < 0) {
+                daysElement.textContent = '00';
+                hoursElement.textContent = '00';
+                minutesElement.textContent = '00';
+                secondsElement.textContent = '00';
+                return;
+            }
+            
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            daysElement.textContent = days.toString().padStart(2, '0');
+            hoursElement.textContent = hours.toString().padStart(2, '0');
+            minutesElement.textContent = minutes.toString().padStart(2, '0');
+            secondsElement.textContent = seconds.toString().padStart(2, '0');
+        }
+        
+        // Initialize Countdown
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Batch Representatives Panel
+        function renderBatchList() {
+            batchList.innerHTML = '';
+            batchRepresentatives.forEach(rep => {
+                const batchItem = document.createElement('div');
+                batchItem.className = 'batch-item';
+                batchItem.innerHTML = `
+                    <div class="batch-year">${rep.year} ব্যাচ</div>
+                    <div class="batch-rep-name"><i class="fas fa-user-tie"></i> ${rep.name}</div>
+                    <div class="batch-contact">
+                        <i class="fas fa-phone"></i> ${rep.phone}
+                    </div>
+                `;
+                
+                batchItem.addEventListener('click', () => {
+                    // Remove active class from all items
+                    document.querySelectorAll('.batch-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked item
+                    batchItem.classList.add('active');
+                    
+                    // Show representative details
+                    showRepDetails(rep);
+                });
+                
+                batchList.appendChild(batchItem);
+            });
+        }
+        
+        function showRepDetails(rep) {
+            const firstLetter = rep.name.charAt(0);
+            
+            repDetails.innerHTML = `
+                <div class="rep-avatar">${firstLetter}</div>
+                <div class="rep-info">
+                    <div class="rep-name">${rep.name}</div>
+                    <div class="rep-batch">${rep.year} ব্যাচ - ${rep.role}</div>
+                    <div class="contact-info">
+                        <a href="tel:${rep.phone}" class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>${rep.phone}</span>
+                        </a>
+                        <a href="mailto:${rep.email}" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>${rep.email}</span>
+                        </a>
+                        <div class="contact-item">
+                            <i class="fas fa-user-tie"></i>
+                            <span>${rep.role} রিপ্রেজেন্টেটিভ</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            repDetails.classList.add('show');
+        }
+        
+        // Search functionality for batches
+        batchSearch.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const items = batchList.querySelectorAll('.batch-item');
+            
+            items.forEach(item => {
+                const year = item.querySelector('.batch-year').textContent.toLowerCase();
+                const name = item.querySelector('.batch-rep-name').textContent.toLowerCase();
+                
+                if (year.includes(searchTerm) || name.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
+        // Toggle panel visibility
+        repCornerBtn.addEventListener('click', function() {
+            repPanel.style.display = 'block';
+        });
+        
+        closePanelBtn.addEventListener('click', function() {
+            repPanel.style.display = 'none';
+        });
+        
+        // Close panel when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!repPanel.contains(event.target) && !repCornerBtn.contains(event.target)) {
+                repPanel.style.display = 'none';
+            }
+        });
+        
+        // Populate graduation years
+        function populateYears() {
+            for (let year = 2025; year >= 2000; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                gradYearSelect.appendChild(option);
+            }
+        }
+        
+        // Name toggle functionality
+        lastNameBtn.addEventListener('click', function() {
+            lastNameBtn.classList.add('active');
+            nicknameBtn.classList.remove('active');
+            lastNameField.style.display = 'block';
+            nicknameField.style.display = 'none';
+            useNickname = false;
+            document.getElementById('nickname').required = false;
+        });
+        
+        nicknameBtn.addEventListener('click', function() {
+            nicknameBtn.classList.add('active');
+            lastNameBtn.classList.remove('active');
+            lastNameField.style.display = 'none';
+            nicknameField.style.display = 'block';
+            useNickname = true;
+            document.getElementById('nickname').required = true;
+        });
+        
+        // Guest counter
+        decreaseGuestBtn.addEventListener('click', function() {
+            if (guestCount > 0) {
+                guestCount--;
+                updateGuestCount();
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            }
+        });
+        
+        increaseGuestBtn.addEventListener('click', function() {
+            if (guestCount < 10) {
+                guestCount++;
+                updateGuestCount();
+                this.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            } else {
+                showError("সর্বোচ্চ ১০ জন অতিথি নেয়া যাবে");
+            }
+        });
+        
+        function updateGuestCount() {
+            guestCountDisplay.textContent = guestCount;
+            guestCountInput.value = guestCount;
+            totalAmount = 1000 + (guestCount * 1000);
+            totalAmountDisplay.textContent = totalAmount.toLocaleString();
+            bkashAmount.textContent = totalAmount.toLocaleString();
+            rocketAmount.textContent = totalAmount.toLocaleString();
+            nagadAmount.textContent = totalAmount.toLocaleString();
+        }
+        
+        // Payment method selection
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', function() {
+                // Remove active class from all methods
+                paymentMethods.forEach(m => m.classList.remove('active'));
+                
+                // Add active class to clicked method
+                this.classList.add('active');
+                
+                // Get selected method
+                selectedPaymentMethod = this.getAttribute('data-method');
+                
+                // Show corresponding payment method
+                bkashPayment.style.display = 'none';
+                rocketPayment.style.display = 'none';
+                nagadPayment.style.display = 'none';
+                
+                if (selectedPaymentMethod === 'bkash') {
+                    bkashPayment.style.display = 'block';
+                } else if (selectedPaymentMethod === 'rocket') {
+                    rocketPayment.style.display = 'block';
+                } else if (selectedPaymentMethod === 'nagad') {
+                    nagadPayment.style.display = 'block';
+                }
+            });
+        });
+        
+        // Update progress bar
+        function updateProgressBar() {
+            const fields = [
+                'firstName', 'email', 'phone', 'gradYear', 'tshirtSize'
+            ];
+            
+            let filledCount = 0;
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field && field.value.trim()) {
+                    filledCount++;
+                }
+            });
+            
+            if (useNickname && document.getElementById('nickname').value.trim()) {
+                filledCount++;
+            } else if (!useNickname && document.getElementById('lastName').value.trim()) {
+                filledCount++;
+            }
+            
+            const progress = (filledCount / (fields.length + 1)) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            if (progress > 0) {
+                progressIndicator.style.display = 'block';
+            } else {
+                progressIndicator.style.display = 'none';
+            }
+        }
+        
+        // Form validation
+        validateFormBtn.addEventListener('click', function() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const gradYear = gradYearSelect.value;
+            const tshirtSize = document.getElementById('tshirtSize').value;
+            
+            // Add button animation
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 150);
+            
+            let isValid = true;
+            let errorMessage = '';
+            
+            // Validation
+            if (!firstName) {
+                isValid = false;
+                errorMessage = 'নামের প্রথম অংশ দিন';
+                document.getElementById('firstName').focus();
+            } else if (!email) {
+                isValid = false;
+                errorMessage = 'ইমেইল ঠিকানা দিন';
+                document.getElementById('email').focus();
+            } else if (!email.includes('@')) {
+                isValid = false;
+                errorMessage = 'সঠিক ইমেইল ঠিকানা দিন';
+                document.getElementById('email').focus();
+            } else if (!phone.match(/^01[3-9]\d{8}$/)) {
+                isValid = false;
+                errorMessage = 'সঠিক মোবাইল নম্বর দিন (যেমন: 01712345678)';
+                document.getElementById('phone').focus();
+            } else if (!gradYear) {
+                isValid = false;
+                errorMessage = 'পাসের বছর নির্বাচন করুন';
+                gradYearSelect.focus();
+            } else if (!tshirtSize) {
+                isValid = false;
+                errorMessage = 'টি-শার্টের সাইজ নির্বাচন করুন';
+                document.getElementById('tshirtSize').focus();
+            } else if (useNickname && !document.getElementById('nickname').value.trim()) {
+                isValid = false;
+                errorMessage = 'ডাকনাম দিন';
+                document.getElementById('nickname').focus();
+            }
+            
+            if (!isValid) {
+                showError(errorMessage);
+                return;
+            }
+            
+            // Enable complete registration button
+            completeRegistrationBtn.disabled = false;
+            completeRegistrationBtn.innerHTML = '<i class="fas fa-check-circle"></i> রেজিস্ট্রেশন সম্পূর্ণ করুন';
+            
+            showSuccess('ফর্ম ভেরিফিকেশন সফল! এখন পেমেন্ট করুন।');
+            
+            // Scroll to payment section
+            document.querySelector('[data-section="payment"]').click();
+        });
+        
+        // Generate ticket ID
+        function generateTicketId() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ0123456789';
+            let ticketId = 'PG';
+            for (let i = 0; i < 6; i++) {
+                ticketId += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return ticketId;
+        }
+        
+        // Get current date in Bengali format
+        function getCurrentDate() {
+            const now = new Date();
+            const day = now.getDate();
+            const month = now.getMonth() + 1;
+            const year = now.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Generate email content
+        function generateEmailContent(data, ticketId) {
+            const displayName = data.nickname 
+                ? `${data.firstName} "${data.nickname}"`
+                : `${data.firstName} ${data.lastName}`;
+            
+            let paymentMethodText = '';
+            if (selectedPaymentMethod === 'bkash') {
+                paymentMethodText = 'bKash';
+            } else if (selectedPaymentMethod === 'rocket') {
+                paymentMethodText = 'Rocket';
+            } else if (selectedPaymentMethod === 'nagad') {
+                paymentMethodText = 'Nagad';
+            }
+            
+            return `
+===================================
+PG SCHOOL REUNION 2026
+রেজিস্ট্রেশন নিশ্চিতকরণ
+===================================
+
+🎓 রেজিস্ট্রেশন তথ্য:
+--------------------
+নাম: ${displayName}
+ইমেইল: ${data.email}
+মোবাইল: ${data.phone}
+পাসের বছর: ${data.gradYear === 'running' ? 'বর্তমান শিক্ষার্থী' : data.gradYear}
+টি-শার্ট সাইজ: ${data.tshirtSize}
+অতিথি সংখ্যা: ${data.guestCount} জন
+
+💰 পেমেন্ট তথ্য:
+----------------
+পেমেন্ট মেথড: ${paymentMethodText}
+ট্রানজেকশন আইডি: ${data.transactionId}
+মোবাইল নাম্বার: ${data.senderNumber}
+মোট টাকা: ৳${data.totalAmount}
+
+🎫 টিকিট তথ্য:
+--------------
+টিকিট আইডি: ${ticketId}
+রেজিস্ট্রেশন তারিখ: ${getCurrentDate()}
+
+===================================
+`;
+        }
+        
+        // Create ticket HTML
+        function createTicketHTML(data, ticketId) {
+            const displayName = data.nickname 
+                ? `${data.firstName} "${data.nickname}"`
+                : `${data.firstName} ${data.lastName}`;
+            
+            const batchText = data.batch || (data.gradYear === 'running' ? 'বর্তমান শিক্ষার্থী' : data.gradYear + ' ব্যাচ');
+            
+            // Determine ticket type based on guest count
+            let ticketType = 'স্ট্যান্ডার্ড';
+            let ticketTypeColor = '#2a5298';
+            if (data.guestCount >= 1) {
+                ticketType = 'ভিআইপি';
+                ticketTypeColor = '#e2136e';
+            }
+            if (data.guestCount >= 3) {
+                ticketType = 'ভিআইপি গোল্ড';
+                ticketTypeColor = '#FFD700';
+            }
+            
+            return `
+                <div class="ticket-preview">
+                    <div class="ticket-header">
+                        <div class="ticket-logo">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h2 class="ticket-title">PG School Reunion 2026</h2>
+                        <p class="ticket-subtitle">পুরনো দিনের স্মৃতি, নতুন দিনের দেখা</p>
+                        <div class="ticket-id">${ticketId}</div>
+                    </div>
+                    
+                    <div class="ticket-body">
+                        <div class="nickname-display">
+                            <div class="nickname-label">আপনার ডাকনাম</div>
+                            <div class="nickname-value">${data.nickname || displayName}</div>
+                        </div>
+                        
+                        <div class="ticket-info-grid">
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-user-graduate"></i> ব্যাচ</div>
+                                <div class="info-value">${batchText}</div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-tshirt"></i> টি-শার্ট</div>
+                                <div class="info-value">${data.tshirtSize}</div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-users"></i> অতিথি</div>
+                                <div class="info-value">${data.guestCount} জন</div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <div class="info-label"><i class="fas fa-ticket-alt"></i> টিকিট টাইপ</div>
+                                <div class="info-value" style="color: ${ticketTypeColor}; font-weight: 700;">${ticketType}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="event-details">
+                            <div class="event-date">৩১ ডিসেম্বর, ২০২৬</div>
+                            <div class="event-location">স্কুল ক্যাম্পাস, প্রধান অডিটোরিয়াম</div>
+                            <div style="margin-top: 10px; font-size: 14px;">
+                                <i class="fas fa-clock"></i> সন্ধ্যা ৬:০০ টা থেকে রাত ১১:০০ টা পর্যন্ত
+                            </div>
+                        </div>
+                        
+                        <div style="position: absolute; bottom: 10px; right: 10px; font-size: 12px; color: rgba(0,0,0,0.1); font-weight: bold;">
+                            PG SCHOOL REUNION
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-footer">
+                        <div class="barcode">
+                            <div class="barcode-line">
+                                <div style="width: 2px;"></div>
+                                <div style="width: 2px; height: 80%;"></div>
+                                <div style="width: 2px;"></div>
+                                <div style="width: 2px; height: 60%;"></div>
+                                <div style="width: 2px;"></div>
+                                <div style="width: 2px; height: 70%;"></div>
+                                <div style="width: 2px;"></div>
+                                <div style="width: 2px; height: 90%;"></div>
+                                <div style="width: 2px;"></div>
+                                <div style="width: 2px; height: 50%;"></div>
+                                <div style="width: 2px;"></div>
+                                <div style="width: 2px; height: 80%;"></div>
+                                <div style="width: 2px;"></div>
+                            </div>
+                        </div>
+                        
+                        <p class="ticket-terms">
+                            এই টিকেটটি শুধুমাত্র নির্দিষ্ট ব্যক্তির জন্যই বৈধ।<br>
+                            প্রবেশের সময় টিকেট ও একটি পরিচয়পত্র দেখাতে হবে।
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Send email via mailto
+        function sendEmailViaMailto(email, content, displayName) {
+            const subject = `PG School Reunion 2026 - Registration for ${displayName}`;
+            const body = encodeURIComponent(content);
+            
+            // For admin
+            const adminMailto = `mailto:mr14allu@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            
+            // For user
+            const userMailto = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${body}`;
+            
+            // Try to open both emails
+            window.open(userMailto, '_blank');
+            setTimeout(() => {
+                window.open(adminMailto, '_blank');
+            }, 1000);
+            
+            return true;
+        }
+        
+        // Complete registration
+        completeRegistrationBtn.addEventListener('click', async function() {
+            // Show loading
+            loadingDiv.style.display = 'block';
+            completeRegistrationBtn.disabled = true;
+            
+            // Get form values
+            const formData = {
+                firstName: document.getElementById('firstName').value.trim(),
+                lastName: useNickname ? '' : document.getElementById('lastName').value.trim(),
+                nickname: useNickname ? document.getElementById('nickname').value.trim() : '',
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                gradYear: gradYearSelect.value,
+                batch: document.getElementById('batch').value.trim(),
+                tshirtSize: document.getElementById('tshirtSize').value,
+                guestCount: guestCount,
+                transactionId: document.getElementById('transactionId').value.trim(),
+                senderNumber: document.getElementById('senderNumber').value.trim(),
+                message: document.getElementById('message').value.trim(),
+                totalAmount: totalAmount
+            };
+            
+            // Validate payment fields
+            if (!formData.transactionId) {
+                showError('ট্রানজেকশন আইডি দিন');
+                loadingDiv.style.display = 'none';
+                completeRegistrationBtn.disabled = false;
+                return;
+            }
+            
+            if (!formData.senderNumber.match(/^01[3-9]\d{8}$/)) {
+                showError('সঠিক মোবাইল নম্বর দিন');
+                loadingDiv.style.display = 'none';
+                completeRegistrationBtn.disabled = false;
+                return;
+            }
+            
+            // Generate ticket ID
+            const ticketId = generateTicketId();
+            
+            // Generate display name
+            const displayName = formData.nickname 
+                ? `${formData.firstName} "${formData.nickname}"`
+                : `${formData.firstName} ${formData.lastName}`;
+            
+            // Generate email content
+            const emailContent = generateEmailContent(formData, ticketId);
+            
+            // Save ticket data
+            currentTicketData = { formData, ticketId, displayName };
+            
+            // Simulate processing
+            setTimeout(() => {
+                loadingDiv.style.display = 'none';
+                
+                // Send email
+                const emailSent = sendEmailViaMailto(
+                    formData.email,
+                    emailContent,
+                    displayName
+                );
+                
+                if (emailSent) {
+                    // Generate ticket HTML
+                    const ticketHTML = createTicketHTML(formData, ticketId);
+                    
+                    // Update modal
+                    modalTicketContent.innerHTML = ticketHTML;
+                    confirmationMessage.innerHTML = `
+                        ধন্যবাদ <strong>${displayName}</strong>!<br>
+                        আপনার রেজিস্ট্রেশন সফল হয়েছে।
+                    `;
+                    
+                    // Update preview
+                    ticketPreviewContent.innerHTML = ticketHTML;
+                    ticketPreviewCard.style.display = 'block';
+                    
+                    // Show modal
+                    confirmationModal.style.display = 'flex';
+                    
+                    // Save to localStorage
+                    saveToLocalStorage(formData, ticketId);
+                    
+                    // Show success
+                    showSuccess('রেজিস্ট্রেশন সফল! ইমেইল পাঠানো হয়েছে।');
+                    
+                    // Scroll to ticket preview
+                    document.querySelector('[data-section="ticket"]').click();
+                }
+            }, 1500);
+        });
+        
+        // Save to localStorage
+        function saveToLocalStorage(data, ticketId) {
+            try {
+                const registrations = JSON.parse(localStorage.getItem('pgRegistrations') || '[]');
+                registrations.push({
+                    ...data,
+                    ticketId,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('pgRegistrations', JSON.stringify(registrations));
+            } catch (error) {
+                console.error('Save error:', error);
+            }
+        }
+        
+        // Print ticket
+        printTicketBtn.addEventListener('click', function() {
+            const printContent = `
+                <html>
+                <head>
+                    <title>PG Reunion Ticket - ${currentTicketData.displayName}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+                        .ticket-container { max-width: 500px; margin: 0 auto; }
+                        @media print {
+                            body { background: white; }
+                            .ticket-container { box-shadow: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="ticket-container">
+                        ${modalTicketContent.innerHTML}
+                    </div>
+                    <script>
+                        window.onload = function() {
+                            window.print();
+                        };
+                    <\/script>
+                </body>
+                </html>
+            `;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.print();
+        });
+        
+        // Send email again
+        sendEmailBtn.addEventListener('click', function() {
+            if (currentTicketData) {
+                const emailContent = generateEmailContent(
+                    currentTicketData.formData,
+                    currentTicketData.ticketId
+                );
+                
+                sendEmailViaMailto(
+                    currentTicketData.formData.email,
+                    emailContent,
+                    currentTicketData.displayName
+                );
+                
+                showSuccess('ইমেইল আবার পাঠানো হয়েছে!');
+            }
+        });
+        
+        // Close modal
+        closeModalBtn.addEventListener('click', function() {
+            confirmationModal.style.display = 'none';
+        });
+        
+        // Helper functions
+        function showError(message) {
+            errorAlert.textContent = message;
+            errorAlert.style.display = 'block';
+            successAlert.style.display = 'none';
+            
+            setTimeout(() => {
+                errorAlert.style.display = 'none';
+            }, 5000);
+            
+            // Vibrate on error (if supported)
+            if (navigator.vibrate) {
+                navigator.vibrate(200);
+            }
+        }
+        
+        function showSuccess(message) {
+            successAlert.textContent = message;
+            successAlert.className = 'mobile-alert alert-success';
+            successAlert.style.display = 'block';
+            errorAlert.style.display = 'none';
+            
+            setTimeout(() => {
+                successAlert.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Navigation
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active state
+                navItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+                
+                const section = this.getAttribute('data-section');
+                
+                // Scroll to section
+                if (section === 'registration') {
+                    window.scrollTo({ top: 90, behavior: 'smooth' });
+                } else if (section === 'payment') {
+                    document.querySelector('.payment-gateway').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } else if (section === 'ticket') {
+                    if (ticketPreviewCard.style.display === 'block') {
+                        ticketPreviewCard.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    } else {
+                        showError("আপনার এখনো কোনো টিকিট নেই। প্রথমে রেজিস্ট্রেশন সম্পূর্ণ করুন।");
+                    }
+                } else if (section === 'help') {
+                    window.scrollTo({ 
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initialize
+        populateYears();
+        updateGuestCount();
+        renderBatchList();
+        
+        // Monitor form changes for progress bar
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('input', updateProgressBar);
+            input.addEventListener('change', updateProgressBar);
+        });
+        
+        // Check for existing registrations
+        window.addEventListener('load', function() {
+            try {
+                const saved = JSON.parse(localStorage.getItem('pgRegistrations') || '[]');
+                if (saved.length > 0) {
+                    console.log(`${saved.length} টি রেজিস্ট্রেশন সংরক্ষিত আছে`);
+                }
+            } catch (error) {
+                console.error('Error loading saved data:', error);
+            }
+        });
+    </script>
+</body>
+</html>
